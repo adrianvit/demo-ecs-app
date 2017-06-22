@@ -1,22 +1,22 @@
-##Demo ECS app
+## Demo ECS app
 Simple spring boot app with the actuator endpoints enabled.
 One test controller to easily force the application to throw 500 errors that will trigger some CloudWatch alarms which in turn will scale up the application.
 
-##Code
+## Code
 Build with
  - mvn clean install
  
 Run with 
  - mvn spring-boot:run
 
-##Deploy
+## Deploy
 Prerequisites: AWS account + AWS CLI tools installed. This stack should fit within the free tier offered by AWS. Region is eu-east-1.
 If you have multiple AWS accounts make sure you have profiles for those and use the correct one.
 
-####Create an ECR repo by running the ecr.json cloudformation template. 
+#### Create an ECR repo by running the ecr.json cloudformation template. 
 - aws cloudformation create-stack --stack-name demo-ecr --template-body file://ecr.json
 
-####Build and push the docker image:
+#### Build and push the docker image:
 - aws ecr get-login --no-include-email --region us-east-1
 - Run the command printed by the above command, this will log you in to the registry and allow image push
 - docker build -t demo .
@@ -25,7 +25,7 @@ If you have multiple AWS accounts make sure you have profiles for those and use 
 
 The commands above can be found in the AWS console, under the ECS repository resource.
 
-####Create the ECS stack, which will have: 
+#### Create the ECS stack, which will have: 
 - one EC2 autoscaling group (cluster in ECS terminology) which is just 1 t2.micro instance as default
 - one ECS service which defines the demo app service
 - one ECS task definition which wraps starting the docker container on AWS
